@@ -1,0 +1,7 @@
+- alias: hasura
+  config:
+    configmap: controller-conf
+    namespace: freelancer94-hasura
+  data: null
+  kubeContext: freelancer94
+  name: freelancer94
