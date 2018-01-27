@@ -5,20 +5,3 @@
   data: null
   kubeContext: freelancer94
   name: freelancer94
-<<<<<<< HEAD
-=======
-- alias: hasura1
-  config:
-    configmap: controller-conf
-    namespace: freelancer94-hasura
-  data: null
-  kubeContext: freelancer94
-  name: freelancer94
-- alias: hasura2
-  config:
-    configmap: controller-conf
-    namespace: freelancer94-hasura
-  data: null
-  kubeContext: freelancer94
-  name: freelancer94
->>>>>>> e0eea8d2b0bb594a50888e780ba85b71189df1c4
