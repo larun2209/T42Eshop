@@ -5,3 +5,10 @@
   data: null
   kubeContext: freelancer94
   name: freelancer94
+- alias: hasura1
+  config:
+    configmap: controller-conf
+    namespace: freelancer94-hasura
+  data: null
+  kubeContext: freelancer94
+  name: freelancer94
