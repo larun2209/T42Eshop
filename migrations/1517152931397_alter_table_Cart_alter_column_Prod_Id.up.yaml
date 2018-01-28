@@ -1,9 +1,0 @@
-- args:
-    sql: ALTER TABLE "Cart" ALTER COLUMN "Prod_Id" TYPE integer;
-  type: run_sql
-- args:
-    sql: ALTER TABLE "Cart" ALTER COLUMN "Prod_Id" DROP DEFAULT;
-  type: run_sql
-- args:
-    sql: ALTER TABLE "Cart" ALTER COLUMN "Prod_Id" SET NOT NULL;
-  type: run_sql
