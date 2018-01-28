@@ -1,0 +1,8 @@
+- args:
+    sql: CREATE TABLE "Cart"("Cart_Id" serial NOT NULL, "Prod_Id" integer NOT NULL,
+      "Prod_name" text NOT NULL, "Prod_desc" text NOT NULL, "Prod_price" integer NOT
+      NULL, PRIMARY KEY ("Cart_Id","Prod_Id") )
+  type: run_sql
+- args:
+    name: Cart
+  type: add_existing_table_or_view

@@ -4,20 +4,20 @@ import { View, ActivityIndicator,StyleSheet} from 'react-native';
 
 export default class ApplianceRow extends React.Component {
 
-  onArticlePressed(id){
-    this.props.articleCallback(id);
+  onAppliancePressed(id){
+    this.props.applianceCallback(id);
   }
     
   render() {
     const showList = () => {
-      return this.props.articleList.map((article, i) => {
+      return this.props.applianceList.map((appliance, i) => {
         
         return (
           <Card key={i}>
             <CardItem button onPress={() => {
-              this.onArticlePressed(article.id);
+              this.onAppliancePressed(appliance.prod_id);
             }}>
-              <Text> {article.title} </Text>
+              <Text> {appliance.prod_name} </Text>
             </CardItem>
           </Card>
         );
@@ -26,10 +26,10 @@ export default class ApplianceRow extends React.Component {
 
     return (
           <Container>
-            <Header style={{justifyContent:'space-between',backgroundColor:"#00FFFF"}}>
+            <Header style={{justifyContent:'space-between',backgroundColor:"#00FF00"}}>
             <Item>
                <Icon  name="ios-happy-outline"/>
-               <Text> Listing appliances...Select to add to cart! </Text>  
+               <Text> Listing appliance items...Select to add to cart! </Text>  
                        
             </Item> 
             </Header>

@@ -25,18 +25,19 @@ import{
 } from "native-base";
 
 
-import { getSearchList } from '../hasuraApi';
-import { getArticle } from '../hasuraApi';
+import { getSearchProductList } from '../hasuraApi';
+import { getProduct } from '../hasuraApi';
+import HomeScreenProd from './HomeScreenProd';
 
 export default class HomeScreen extends Component{
   
   constructor(props){
     super(props);
     this.state = {
-        articleList: [],
+        productList: [],
         searchTextBox : '',
-        currentArticleId: null,  
-        articleObj: null,
+        currentProductId: null,  
+        productObj: null,
       }
       
   }
@@ -49,18 +50,18 @@ handleSearchChange = searchTextBox => {
 }
 
 handleSearchPressed = async () => {
-    let articleList = await getSearchList(this.state.searchTextBox);
+    let productList = await getSearchProductList(this.state.searchTextBox);
     
     
-    if(articleList.status === 200){
-      articleListJson = await articleList.json();
+    if(productList.status === 200){
+      productListJson = await productList.json();
       this.setState({
-      articleList: await articleListJson
+      productList: await productListJson
       });
       
     }
     else {
-      if (articleList.status === 504) {
+      if (productList.status === 504) {
         Alert.alert('Network error', 'Check your internet connection');
       } else {
         Alert.alert('Something went wrong', 'Please check table permissions and your internet connection')
@@ -69,113 +70,70 @@ handleSearchPressed = async () => {
   }
  
 
-  onArticlePressed(id){
+  onProductPressed(id){
     this.setState ({
-      currentArticleId: id
+      currentProductId: id
     })
-  }
-
-
-  async componentDidMount(){
-    let articleObj = await getArticle(this.state.articleId);
-    if(articleObj.status === 200){
-      articleObjJson = await articleObj.json();
-      this.setState({
-        articleObj: articleObjJson[0]
-      });
-    } else {
-      if (articleList.status === 504) {
-        Alert.alert('Network error', 'Check your internet connection');
-      } else {
-        Alert.alert('Something went wrong', 'Please check table permissions and your internet connection')
-      }
-    }
-
-    
+  
   }
 
   render() {
     const showList = () => {
-      return this.state.articleList.map((article, i) => {
+      return this.state.productList.map((product, i) => {
         
         return (
           <Card key={i}>
             <CardItem button onPress={() => {
-              this.onArticlePressed(article.id);
+              this.onProductPressed(product.prod_id);
             }}>
-              <Text> {article.title} </Text>
+              <Text> {product.prod_name} </Text>
             </CardItem>
           </Card>
         );
       });
     };
 
-    const showArticle=()=>{
-      return (
-        <Container>
-          <Header style={{justifyContent:'space-between',backgroundColor:"#00FFFF"}}>
-          <Item>
-             <Icon  name="ios-happy-outline"/>
-             <Text> Product added to cart! </Text>  
-                     
-          </Item> 
-          </Header>
-          <Content padder>
-            <Card>
-              <CardItem header>
-                <Text>{this.state.articleObj.title}</Text>
-              </CardItem>
-              <CardItem>
-                <Text>{this.state.articleObj.content}</Text>
-              </CardItem>
-              <CardItem footer>
-                <Text>By: {this.state.articleObj.author.name}</Text>
-              </CardItem>
-            </Card>
-          </Content>
-        </Container>
-      )
-    };
-    return (
+  return (
       <Container>
-        <Header searchBar style={{justifyContent:'space-between',backgroundColor:"white"}}>
+        <Header searchBar style={{justifyContent:'space-between',backgroundColor:"blue"}}>
         <Item>
+        <Icon  name="ios-happy-outline" style={{color:'black'}}/>  
         <Input placeholder="Search for products here!" value={this.state.searchTextBox} onChangeText={this.handleSearchChange}/>
         <Button transparent onPress={this.handleSearchPressed}> 
-            <Icon  name="ios-search-outline"/>
+            <Icon  name="ios-search-outline" style={{color:'black'}}/>
         </Button>    
 
         <Button
               transparent
               onPress={() => this.props.navigation.navigate("DrawerOpen")}>
-              <Icon name="menu" />
+              <Icon name="menu"  style={{color:'black'}}/>
         </Button>
              
         </Item> 
         </Header>
         <Content padder>
           {
-            (this.state.currentArticleId !== null)
+            (this.state.currentProductId !== null)
             ?
-            showArticle()
+            <HomeScreenProd productId={this.state.currentProductId}/>
             :
             showList()
           }
         
         </Content>
         <Footer>
-            <FooterTab style={{backgroundColor: "#FFF",borderColor: 'black', borderWidth: 1}}>
+            <FooterTab style={{backgroundColor: "blue",borderColor: 'black', borderWidth: 1}}>
                         <Button transparent onPress={() => this.props.navigation.navigate("Fashion")}>
-                            <Icon  name="ios-shirt" />
+                            <Icon  name="ios-shirt" style={{color:'white'}} />
                         </Button>
                         <Button transparent onPress={() => this.props.navigation.navigate("Grocery")}>
-                            <Icon  name="ios-basket" />
+                            <Icon  name="ios-basket" style={{color:'white'}} />
                         </Button>
                         <Button transparent onPress={() => this.props.navigation.navigate("Appliance")}>
-                            <Icon  name="ios-phone-portrait" />
+                            <Icon  name="ios-phone-portrait" style={{color:'white'}} />
                         </Button>
                         <Button transparent onPress={() => this.props.navigation.navigate("MyCart")}>
-                            <Icon  name="ios-cart" />
+                            <Icon  name="ios-cart" style={{color:'white'}} />
                         </Button>
                         
             </FooterTab>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {  Alert, Text} from 'react-native';
 import { Container, Header, Content, Spinner } from 'native-base';
-import { getApplianceList } from '../hasuraApi';
+import { getApplianceProductList } from '../hasuraApi';
 import Appliance from './Appliance';
 import ApplianceRow from './ApplianceRow';
 
@@ -11,26 +11,26 @@ export default class ApplianceList extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      articleList: [],
-      currentArticleId: null,
+      applianceList: [],
+      currentApplianceId: null,
       
     }
-    this.articleClicked = this.articleClicked.bind(this);
+    this.applianceClicked = this.applianceClicked.bind(this);
     
   }
 
   async componentDidMount(){
-    appliancetext='amet'
-    let articleList = await getApplianceList(appliancetext);
+    
+    let applianceList = await getApplianceProductList();
 
-    if(articleList.status === 200){
-      articleListJson = await articleList.json();
+    if(applianceList.status === 200){
+      applianceListJson = await applianceList.json();
       this.setState({
-        articleList: await articleListJson
+        applianceList: await applianceListJson
       });
     }
     else {
-      if (articleList.status === 504) {
+      if (applianceList.status === 504) {
         Alert.alert('Network error', 'Check your internet connection');
       } else {
         Alert.alert('Something went wrong', 'Please check table permissions and your internet connection')
@@ -41,9 +41,9 @@ export default class ApplianceList extends React.Component {
 
   }
 
-  articleClicked(id){
+  applianceClicked(id){
     this.setState ({
-      currentArticleId: id
+      currentApplianceId: id
     })
   }
 
@@ -54,11 +54,11 @@ export default class ApplianceList extends React.Component {
       return (
         <Container style={{alignItems: 'center', justifyContent: 'center'}}>
           {
-            (this.state.currentArticleId !== null)
+            (this.state.currentApplianceId !== null)
             ?
-            <Appliance articleId={this.state.currentArticleId} />
+            <Appliance applianceId={this.state.currentApplianceId} />
             :
-            <ApplianceRow articleList={this.state.articleList} articleCallback={this.articleClicked} />
+            <ApplianceRow applianceList={this.state.applianceList} applianceCallback={this.applianceClicked} />
           }
         </Container>
       );

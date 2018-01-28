@@ -3,26 +3,26 @@ import { Alert,StyleSheet} from 'react-native';
 import { Container, Text, Button, Card, CardItem, Icon, Header, Left, Body, Title, Content, Right, Spinner,Item} from 'native-base'
 import { getProduct } from '../hasuraApi'
 
-export default class Fashion extends React.Component {
+export default class HomeScreenProd extends React.Component {
 
   constructor(props){
     super(props);
     this.state={
-      fashionId: props.fashionId,
-      fashionObj: null,
+      productId: props.productId,
+      productObj: null,
       
     }
   } 
 
   async componentDidMount(){
-    let fashionObj = await getProduct(this.state.fashionId);
-    if(fashionObj.status === 200){
-      fashionObjJson = await fashionObj.json();
+    let productObj = await getProduct(this.state.productId);
+    if(productObj.status === 200){
+      productObjJson = await productObj.json();
       this.setState({
-        fashionObj: fashionObjJson[0]
+        productObj: productObjJson[0]
       });
     } else {
-      if (fashionObj.status === 504) {
+      if (productObj.status === 504) {
         Alert.alert('Network error', 'Check your internet connection');
       } else {
         Alert.alert('Something went wrong', 'Please check table permissions and your internet connection')
@@ -33,26 +33,26 @@ export default class Fashion extends React.Component {
   }
 
   render() {
-    if(this.state.fashionObj !== null ){
+    if(this.state.productObj !== null ){
       return (
         <Container>
-          <Header style={{justifyContent:'space-between',backgroundColor:"#FFFF00"}}>
+          <Header style={{justifyContent:'space-between',backgroundColor:"#00FF00"}}>
           <Item>
              <Icon  name="ios-happy-outline"/>
-             <Text> Fashion accessory added to cart! </Text>  
+             <Text> product added to cart! </Text>  
                      
           </Item> 
           </Header>
           <Content padder>
             <Card>
               <CardItem header>
-                <Text>Product:{this.state.fashionObj.prod_name}</Text>
+                <Text>Product:{this.state.productObj.prod_name}</Text>
               </CardItem>
               <CardItem>
-                <Text>Description:{this.state.fashionObj.prod_desc}</Text>
+                <Text>Description:{this.state.productObj.prod_desc}</Text>
               </CardItem>
               <CardItem footer>
-                <Text>Price: {this.state.fashionObj.prod_price}</Text>
+                <Text>Price: {this.state.productObj.prod_price}</Text>
               </CardItem>
             </Card>
           </Content>

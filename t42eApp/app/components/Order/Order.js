@@ -21,7 +21,7 @@ import {
   CardItem
 } from "native-base";
 
-import { getArticleList } from '../hasuraApi';
+import { getProductList } from '../hasuraApi';
 
 
 export default class Order extends Component {
@@ -29,25 +29,25 @@ export default class Order extends Component {
     constructor(props){
         super(props);
         this.state={
-          articleList: [],
+          productList: [],
             
         }
         
       }
       async componentDidMount(){
         
-            let articleList = await getArticleList();
+            let productList = await getProductList();
             
             
-            if(articleList.status === 200){
-              articleListJson = await articleList.json();
+            if(productList.status === 200){
+              productListJson = await productList.json();
               this.setState({
-              articleList: await articleListJson
+              productList: await productListJson
               });
               
             }
             else {
-              if (articleList.status === 504) {
+              if (productList.status === 504) {
                 Alert.alert('Network error', 'Check your internet connection');
               } else {
                 Alert.alert('Something went wrong', 'Please check table permissions and your internet connection')
@@ -57,12 +57,12 @@ export default class Order extends Component {
           }  
     render() {
         const showList = () => {
-            return this.state.articleList.map((article, i) => {
+            return this.state.productList.map((product, i) => {
               
               return (
                 <Card key={i}>
-                  <CardItem >
-                    <Text> {article.title} </Text>
+                  <CardItem style={{backgroundColor:'#F0FFFF'}}>
+                    <Text> {product.prod_name} </Text>
                   </CardItem>
                 </Card>
               );
@@ -70,7 +70,7 @@ export default class Order extends Component {
           };
         return (
             <Container >
-               <Header style={{justifyContent:'space-between',backgroundColor:"#FF00FF"}}>
+               <Header style={{justifyContent:'space-between',backgroundColor:"#7B68EE"}}>
                <Item>
                   <Icon  name="ios-happy-outline"/>
                   <Text> Your recent orders! </Text>  

@@ -4,20 +4,20 @@ import { View, ActivityIndicator,StyleSheet} from 'react-native';
 
 export default class FashionRow extends React.Component {
 
-  onArticlePressed(id){
-    this.props.articleCallback(id);
+  onFashionPressed(id){
+    this.props.fashionCallback(id);
   }
     
   render() {
     const showList = () => {
-      return this.props.articleList.map((article, i) => {
+      return this.props.fashionList.map((fashion, i) => {
         
         return (
           <Card key={i}>
             <CardItem button onPress={() => {
-              this.onArticlePressed(article.id);
+              this.onFashionPressed(fashion.prod_id);
             }}>
-              <Text> {article.title} </Text>
+              <Text> {fashion.prod_name} </Text>
             </CardItem>
           </Card>
         );
@@ -26,7 +26,7 @@ export default class FashionRow extends React.Component {
 
     return (
           <Container>
-            <Header style={{justifyContent:'space-between',backgroundColor:"#00FF00"}}>
+            <Header style={{justifyContent:'space-between',backgroundColor:"#FFFF00"}}>
             <Item>
                <Icon  name="ios-happy-outline"/>
                <Text> Listing fashion items...Select to add to cart! </Text>  

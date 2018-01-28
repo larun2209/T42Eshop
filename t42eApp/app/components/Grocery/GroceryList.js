@@ -1,7 +1,7 @@
 import React from 'react';
 import {  Alert, Text} from 'react-native';
 import { Container, Header, Content, Spinner } from 'native-base';
-import { getGroceryList } from '../hasuraApi';
+import { getGroceryProductList } from '../hasuraApi';
 import Grocery from './Grocery';
 import GroceryRow from './GroceryRow';
 
@@ -11,26 +11,26 @@ export default class GroceryList extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      articleList: [],
-      currentArticleId: null,
+      groceryList: [],
+      currentGroceryId: null,
       
     }
-    this.articleClicked = this.articleClicked.bind(this);
+    this.groceryClicked = this.groceryClicked.bind(this);
     
   }
 
   async componentDidMount(){
-    grocerytext='mm'
-    let articleList = await getGroceryList(grocerytext);
+    
+    let groceryList = await getGroceryProductList();
 
-    if(articleList.status === 200){
-      articleListJson = await articleList.json();
+    if(groceryList.status === 200){
+      groceryListJson = await groceryList.json();
       this.setState({
-        articleList: await articleListJson
+        groceryList: await groceryListJson
       });
     }
     else {
-      if (articleList.status === 504) {
+      if (groceryList.status === 504) {
         Alert.alert('Network error', 'Check your internet connection');
       } else {
         Alert.alert('Something went wrong', 'Please check table permissions and your internet connection')
@@ -41,9 +41,9 @@ export default class GroceryList extends React.Component {
 
   }
 
-  articleClicked(id){
+  groceryClicked(id){
     this.setState ({
-      currentArticleId: id
+      currentGroceryId: id
     })
   }
 
@@ -54,11 +54,11 @@ export default class GroceryList extends React.Component {
       return (
         <Container style={{alignItems: 'center', justifyContent: 'center'}}>
           {
-            (this.state.currentArticleId !== null)
+            (this.state.currentGroceryId !== null)
             ?
-            <Grocery articleId={this.state.currentArticleId} />
+            <Grocery groceryId={this.state.currentGroceryId} />
             :
-            <GroceryRow articleList={this.state.articleList} articleCallback={this.articleClicked} />
+            <GroceryRow groceryList={this.state.groceryList} groceryCallback={this.groceryClicked} />
           }
         </Container>
       );

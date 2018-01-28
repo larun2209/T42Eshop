@@ -1,28 +1,28 @@
 import React from 'react';
 import { Alert,StyleSheet} from 'react-native';
 import { Container, Text, Button, Card, CardItem, Icon, Header, Left, Body, Title, Content, Right, Spinner,Item} from 'native-base'
-import { getArticle } from '../hasuraApi'
+import { getProduct } from '../hasuraApi'
 
 export default class Appliance extends React.Component {
 
   constructor(props){
     super(props);
     this.state={
-      articleId: props.articleId,
-      articleObj: null,
+      applianceId: props.applianceId,
+      applianceObj: null,
       
     }
   } 
 
   async componentDidMount(){
-    let articleObj = await getArticle(this.state.articleId);
-    if(articleObj.status === 200){
-      articleObjJson = await articleObj.json();
+    let applianceObj = await getProduct(this.state.applianceId);
+    if(applianceObj.status === 200){
+      applianceObjJson = await applianceObj.json();
       this.setState({
-        articleObj: articleObjJson[0]
+        applianceObj: applianceObjJson[0]
       });
     } else {
-      if (articleList.status === 504) {
+      if (applianceObj.status === 504) {
         Alert.alert('Network error', 'Check your internet connection');
       } else {
         Alert.alert('Something went wrong', 'Please check table permissions and your internet connection')
@@ -33,26 +33,26 @@ export default class Appliance extends React.Component {
   }
 
   render() {
-    if(this.state.articleObj !== null ){
+    if(this.state.applianceObj !== null ){
       return (
         <Container>
-          <Header style={{justifyContent:'space-between',backgroundColor:"#00FFFF"}}>
+          <Header style={{justifyContent:'space-between',backgroundColor:"#00FF00"}}>
           <Item>
              <Icon  name="ios-happy-outline"/>
-             <Text> Appliance added to cart! </Text>  
+             <Text> appliance added to cart! </Text>  
                      
           </Item> 
           </Header>
           <Content padder>
             <Card>
               <CardItem header>
-                <Text>{this.state.articleObj.title}</Text>
+                <Text>Product:{this.state.applianceObj.prod_name}</Text>
               </CardItem>
               <CardItem>
-                <Text>{this.state.articleObj.content}</Text>
+                <Text>Description:{this.state.applianceObj.prod_desc}</Text>
               </CardItem>
               <CardItem footer>
-                <Text>By: {this.state.articleObj.author.name}</Text>
+                <Text>Price: {this.state.applianceObj.prod_price}</Text>
               </CardItem>
             </Card>
           </Content>

@@ -4,20 +4,20 @@ import { View, ActivityIndicator,StyleSheet} from 'react-native';
 
 export default class GroceryRow extends React.Component {
 
-  onArticlePressed(id){
-    this.props.articleCallback(id);
+  onGroceryPressed(id){
+    this.props.groceryCallback(id);
   }
     
   render() {
     const showList = () => {
-      return this.props.articleList.map((article, i) => {
+      return this.props.groceryList.map((grocery, i) => {
         
         return (
           <Card key={i}>
             <CardItem button onPress={() => {
-              this.onArticlePressed(article.id);
+              this.onGroceryPressed(grocery.prod_id);
             }}>
-              <Text> {article.title} </Text>
+              <Text> {grocery.prod_name} </Text>
             </CardItem>
           </Card>
         );
@@ -26,7 +26,7 @@ export default class GroceryRow extends React.Component {
 
     return (
           <Container>
-            <Header style={{justifyContent:'space-between',backgroundColor:"#FFFF00"}}>
+            <Header style={{justifyContent:'space-between',backgroundColor:"#00FFFF"}}>
             <Item>
                <Icon  name="ios-happy-outline"/>
                <Text> Listing grocery items...Select to add to cart! </Text>  

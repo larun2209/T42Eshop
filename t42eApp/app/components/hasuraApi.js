@@ -358,3 +358,239 @@ export async function getGroceryList(searchText) {
   }
 };
 
+// New APIs
+// New APIs
+// New APIs
+// New APIs
+
+export async function getProductList() {
+	console.log('Making data query (get product list)');
+  let requestOptions = {
+      "method": "POST",
+      "headers": {
+          "Content-Type": "application/json"
+      }
+  };
+
+  let body = {
+      "type": "select",
+      "args": {
+          "table": "product",
+          "columns": [
+              "prod_id",
+              "prod_name",
+          ]
+      }
+  };
+
+  requestOptions["body"] = JSON.stringify(body);
+  console.log('Data Response ---------------------');
+  try {
+  	let resp = await fetch(dataUrl, requestOptions);
+    console.log(resp);
+  	return resp; 
+  }
+  catch(e) {
+  	console.log("Request Failed: " + e);
+    return networkErrorObj;
+  }
+}
+
+export async function getProduct(id) {
+  console.log('Making data query (get product)');
+  let requestOptions = {
+      "method": "POST",
+      "headers": {
+          "Content-Type": "application/json"
+      }
+  };
+
+  let body = {
+      "type": "select",
+      "args": {
+          "table": "product",
+          "columns": [
+              "prod_id",
+              "prod_name",
+              "prod_desc",
+              "prod_price"
+          ],
+          "where": {
+              "prod_id": {
+                  "$eq": id
+              }
+          }
+      }
+  };
+
+  requestOptions["body"] = JSON.stringify(body);
+  console.log('Data Response ---------------------');
+  try{
+  	let resp = await fetch(dataUrl, requestOptions);
+    console.log(resp);
+  	return resp;
+  }
+  catch (e) {
+  	console.log("Request failed: " + e);
+    return networkErrorObj;
+  }
+};
+
+export async function getSearchProductList(searchText) {
+  console.log('Making data query (search product)');
+  let requestOptions = {
+      "method": "POST",
+      "headers": {
+          "Content-Type": "application/json"
+      }
+  };
+
+  let body = {
+      "type": "select",
+      "args": {
+          "table": "product",
+          "columns": [
+            "prod_id",
+            "prod_name",
+            "prod_desc",
+			"prod_price"
+          ],
+          "where": {
+              "prod_desc": {
+                  "$like": '%'+searchText+'%'
+              }
+          }
+      }
+  };
+
+  requestOptions["body"] = JSON.stringify(body);
+  console.log('Data Response ---------------------');
+  try{
+  	let resp = await fetch(dataUrl, requestOptions);
+    console.log(resp);
+  	return resp;
+  }
+  catch (e) {
+  	console.log("Request failed: " + e);
+    return networkErrorObj;
+  }
+};
+
+export async function getFashionProductList() {
+  console.log('Making data query ( FashionProductList)');
+  let requestOptions = {
+      "method": "POST",
+      "headers": {
+          "Content-Type": "application/json"
+      }
+  };
+
+  let body = {
+      "type": "select",
+      "args": {
+          "table": "product",
+          "columns": [
+            "prod_id",
+            "prod_name",
+            "prod_category"
+          ],
+          "where": {
+              "prod_category": {
+                  "$eq": 'Fashion'
+              }
+          }
+      }
+  };
+
+  requestOptions["body"] = JSON.stringify(body);
+  console.log('Data Response ---------------------');
+  try{
+  	let resp = await fetch(dataUrl, requestOptions);
+    console.log(resp);
+  	return resp;
+  }
+  catch (e) {
+  	console.log("Request failed: " + e);
+    return networkErrorObj;
+  }
+};
+
+
+export async function getApplianceProductList() {
+  console.log('Making data query (appliance list)');
+  let requestOptions = {
+      "method": "POST",
+      "headers": {
+          "Content-Type": "application/json"
+      }
+  };
+
+  let body = {
+      "type": "select",
+      "args": {
+          "table": "product",
+          "columns": [
+            "prod_id",
+            "prod_name",
+            "prod_category"
+          ],
+          "where": {
+              "prod_category": {
+                  "$eq": 'Appliance'
+              }
+          }
+      }
+  };
+
+  requestOptions["body"] = JSON.stringify(body);
+  console.log('Data Response ---------------------');
+  try{
+  	let resp = await fetch(dataUrl, requestOptions);
+    console.log(resp);
+  	return resp;
+  }
+  catch (e) {
+  	console.log("Request failed: " + e);
+    return networkErrorObj;
+  }
+};
+
+export async function getGroceryProductList(searchText) {
+  console.log('Making data query (grocery product list)');
+  let requestOptions = {
+      "method": "POST",
+      "headers": {
+          "Content-Type": "application/json"
+      }
+  };
+
+  let body = {
+      "type": "select",
+      "args": {
+          "table": "product",
+          "columns": [
+            "prod_id",
+            "prod_name",
+            "prod_category"
+          ],
+          "where": {
+              "prod_category": {
+                  "$eq": 'Grocery'
+              }
+          }
+      }
+  };
+
+  requestOptions["body"] = JSON.stringify(body);
+  console.log('Data Response ---------------------');
+  try{
+  	let resp = await fetch(dataUrl, requestOptions);
+    console.log(resp);
+  	return resp;
+  }
+  catch (e) {
+  	console.log("Request failed: " + e);
+    return networkErrorObj;
+  }
+};
+
