@@ -1,0 +1,3 @@
+- args:
+    sql: DROP TABLE "Cart"
+  type: run_sql

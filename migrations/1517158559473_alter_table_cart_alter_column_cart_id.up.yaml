@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "cart" ALTER COLUMN "cart_id" TYPE serial;
+  type: run_sql
+- args:
+    sql: ALTER TABLE ONLY "cart" ALTER COLUMN "cart_id" SET DEFAULT nextval('cart_cart_id_seq'::regclass);
+  type: run_sql
+- args:
+    sql: ALTER TABLE "cart" ALTER COLUMN "cart_id" SET NOT NULL;
+  type: run_sql
