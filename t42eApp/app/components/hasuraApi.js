@@ -1,4 +1,4 @@
-const clusterName = "freelancer94"
+const clusterName = "clarinetist87"
 
 const dataUrl = "https://data." + clusterName + ".hasura-app.io/v1/query";
 const loginUrl = "https://auth." + clusterName + ".hasura-app.io/v1/login";
