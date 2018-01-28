@@ -3,6 +3,7 @@ import { Alert,StyleSheet} from 'react-native';
 import { Container, Text, Button, Card, CardItem, Icon, Header, Left, Body, Title, Content, Right, Spinner,Item} from 'native-base'
 import { getProduct } from '../hasuraApi'
 
+
 export default class Fashion extends React.Component {
 
   constructor(props){
@@ -28,7 +29,7 @@ export default class Fashion extends React.Component {
         Alert.alert('Something went wrong', 'Please check table permissions and your internet connection')
       }
     }
-
+    
     
   }
 

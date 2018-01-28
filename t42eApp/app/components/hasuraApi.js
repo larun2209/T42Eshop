@@ -436,6 +436,44 @@ export async function getProduct(id) {
   }
 };
 
+export async function setProduct(fashionObj) {
+  console.log('Making data query (set product)');
+  let requestOptions = {
+      "method": "PUT",
+      "headers": {
+          "Content-Type": "application/json"
+      }
+  };
+
+  let body = {
+      "type": "insert",
+      "args": {
+          "table": "cart",
+          "objects": [
+            {
+            "cart_prodid":fashionObj.prod_id,
+            "cart_prodname":fashionObj.prod_name,
+            "cart_proddesc":fashionObj.prod_desc,
+            "cart_prodprice":fashionObj.prod_price}
+              
+          ],
+          
+      }
+  };
+
+  requestOptions["body"] = JSON.stringify(body);
+  console.log('Data Response ---------------------');
+  try{
+  	let resp = await fetch(dataUrl, requestOptions);
+    console.log(resp);
+  	return resp;
+  }
+  catch (e) {
+  	console.log("Request failed: " + e);
+    return networkErrorObj;
+  }
+};
+
 export async function getSearchProductList(searchText) {
   console.log('Making data query (search product)');
   let requestOptions = {
