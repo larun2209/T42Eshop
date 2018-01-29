@@ -15,6 +15,7 @@ This is a fully working react-native app with a [Hasura](https://hasura.io) back
 
 ### Opening the app
 
-Install the release version of the apk in android phone
+Install the release version of the apk in android phone:
+https://drive.google.com/open?id=1eIvT0vervQjtGXjR5zSZ-BRYJ4uvEuNM
 
 
