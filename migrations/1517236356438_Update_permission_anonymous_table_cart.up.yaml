@@ -1,0 +1,12 @@
+- args:
+    permission:
+      columns:
+      - cart_prodprice
+      - cart_id
+      - cart_prodid
+      - cart_prodname
+      - cart_proddesc
+      filter: {}
+    role: anonymous
+    table: cart
+  type: create_select_permission
