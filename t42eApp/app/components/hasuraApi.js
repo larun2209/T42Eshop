@@ -7,6 +7,8 @@ const logoUrl= "https://filestore." + clusterName + ".hasura-app.io/v1/file/c799
 
 import { Alert } from 'react-native';
 
+
+
 const networkErrorObj = {
   status: 503
 }
@@ -632,3 +634,44 @@ export async function getGroceryProductList(searchText) {
   }
 };
 
+export async function AddtoCart(product) {
+    console.log('Adding to cart');
+    let requestOptions = {
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    };
+  
+    let body = {
+        "type": "insert",
+        "args": {
+            "table": "cart",
+            "objects": [
+                {
+                "cart_id":1,
+                "cart_prodid":"product.prod_id",
+                "cart_prodname":"product.prod_name",
+                "cart_proddesc":"product.prod_desc",
+                "cart_prodprice":"product.prod_price"
+            }                    
+            ]
+            
+            }
+        };
+    
+  
+    requestOptions["body"] = JSON.stringify(body);
+    console.log('Data Response ---------------------');
+    
+    try{
+        let resp = await fetch(dataUrl, requestOptions);
+      console.log(resp);
+        return resp;
+    }
+    catch (e) {
+        console.log("Request failed: " + e);
+      return networkErrorObj;
+    }
+  };
+  
