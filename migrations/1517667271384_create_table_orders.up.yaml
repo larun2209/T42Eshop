@@ -1,0 +1,7 @@
+- args:
+    sql: CREATE TABLE "orders"("orders_id" serial  DEFAULT 1, PRIMARY KEY ("orders_id")
+      )
+  type: run_sql
+- args:
+    name: orders
+  type: add_existing_table_or_view
