@@ -1,5 +1,5 @@
 - args:
-    sql: CREATE TABLE "neworder"("order_id" integer NOT NULL, PRIMARY KEY ("order_id")
+    sql: CREATE TABLE "neworder"("order_id" NOT NULL, PRIMARY KEY ("order_id")
       )
   type: run_sql
 - args:
