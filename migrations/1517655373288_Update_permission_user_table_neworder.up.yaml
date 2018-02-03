@@ -1,0 +1,12 @@
+- args:
+    permission:
+      columns:
+      - order_prodprice
+      - order_id
+      - order_cartid
+      - order_prodname
+      - order_proddesc
+      filter: {}
+    role: user
+    table: neworder
+  type: create_update_permission

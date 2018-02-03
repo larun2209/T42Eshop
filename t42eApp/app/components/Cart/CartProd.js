@@ -32,7 +32,7 @@ export default class CartProd extends React.Component {
       }
     }
 
-    let orderObj = await RemovefromCart(this.state.cartproductObj);
+    let orderObj = await PlaceOrder(this.state.cartproductObj);
     if(orderObj.status === 200){
      Alert.alert('Order successful');
       }
@@ -44,6 +44,10 @@ export default class CartProd extends React.Component {
       }
     }
 
+    let orderObj1 = await RemovefromCart(this.state.cartproductObj);
+    if(orderObj1.status === 200){
+     console.log('Moved out of Cart');
+      }
     
     
   }
@@ -55,22 +59,12 @@ export default class CartProd extends React.Component {
           <Header style={{justifyContent:'space-between',backgroundColor:"#00FF00"}}>
           <Item>
              <Icon  name="ios-happy-outline"/>
-             <Text> product added to cart! </Text>  
+             <Text> product order placed! </Text>  
                      
           </Item> 
           </Header>
           <Content padder>
-            <Card>
-              <CardItem header>
-                <Text>Product:{this.state.cartproductObj.cart_prodname}</Text>
-              </CardItem>
-              <CardItem>
-                <Text>Description:{this.state.cartproductObj.cart_proddesc}</Text>
-              </CardItem>
-              <CardItem footer>
-                <Text>Price: {this.state.cartproductObj.cart_prodprice}</Text>
-              </CardItem>
-            </Card>
+            
           </Content>
         </Container>
       )

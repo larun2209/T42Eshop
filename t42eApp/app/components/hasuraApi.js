@@ -714,6 +714,8 @@ export async function getCartProduct(id) {
   
   export async function PlaceOrder(cartproduct) {
     console.log('Placing order');
+    console.log(cartproduct.cart_id);
+    console.log(cartproduct.cart_prodname);
     let requestOptions = {
         "method": "POST",
         "headers": {
@@ -724,10 +726,9 @@ export async function getCartProduct(id) {
     let body = {
         "type": "insert",
         "args": {
-            "table": "order",
+            "table": "neworder",
             "objects": [
                 {
-                
                 "order_cartid":cartproduct.cart_id,
                 "order_prodname":cartproduct.cart_prodname,
                 "order_proddesc":cartproduct.cart_proddesc,
@@ -753,7 +754,7 @@ export async function getCartProduct(id) {
     }
   };
 
-  export async function RemovefromCart(cartproduct) {
+export async function RemovefromCart(cartproduct) {
     console.log('Placed order:Removing from Cart');
     let requestOptions = {
         "method": "POST",
