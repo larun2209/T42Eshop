@@ -438,43 +438,6 @@ export async function getProduct(id) {
   }
 };
 
-export async function setProduct(fashionObj) {
-  console.log('Making data query (set product)');
-  let requestOptions = {
-      "method": "PUT",
-      "headers": {
-          "Content-Type": "application/json"
-      }
-  };
-
-  let body = {
-      "type": "insert",
-      "args": {
-          "table": "cart",
-          "objects": [
-            {
-            "cart_prodid":fashionObj.prod_id,
-            "cart_prodname":fashionObj.prod_name,
-            "cart_proddesc":fashionObj.prod_desc,
-            "cart_prodprice":fashionObj.prod_price}
-              
-          ],
-          
-      }
-  };
-
-  requestOptions["body"] = JSON.stringify(body);
-  console.log('Data Response ---------------------');
-  try{
-  	let resp = await fetch(dataUrl, requestOptions);
-    console.log(resp);
-  	return resp;
-  }
-  catch (e) {
-  	console.log("Request failed: " + e);
-    return networkErrorObj;
-  }
-};
 
 export async function getSearchProductList(searchText) {
   console.log('Making data query (search product)');
@@ -675,7 +638,7 @@ export async function AddtoCart(product) {
     }
   };
 
-  export async function getCartList() {
+export async function getCartList() {
 	console.log('Making data query (get cart list)');
   let requestOptions = {
       "method": "POST",
@@ -708,4 +671,84 @@ export async function AddtoCart(product) {
   }
 }
 
+
+export async function getCartProduct(id) {
+    console.log('Making data query (get product)');
+    let requestOptions = {
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    };
   
+    let body = {
+        "type": "select",
+        "args": {
+            "table": "cart",
+            "columns": [
+                "cart_id",
+                "cart_prodname",
+                "cart_proddesc",
+                "cart_prodprice"
+            ],
+            "where": {
+                "cart_id": {
+                    "$eq": id
+                }
+            }
+        }
+    };
+  
+    requestOptions["body"] = JSON.stringify(body);
+    console.log('Data Response ---------------------');
+    try{
+        let resp = await fetch(dataUrl, requestOptions);
+      console.log(resp);
+        return resp;
+    }
+    catch (e) {
+        console.log("Request failed: " + e);
+      return networkErrorObj;
+    }
+  };
+  
+  export async function PlaceOrder(cartproduct) {
+    console.log('Placing order');
+    let requestOptions = {
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    };
+  
+    let body = {
+        "type": "insert",
+        "args": {
+            "table": "order",
+            "objects": [
+                {
+                
+                "order_cartid":cartproduct.cart_id,
+                "order_prodname":cartproduct.cart_prodname,
+                "order_proddesc":cartproduct.cart_proddesc,
+                "order_prodprice":cartproduct.cart_prodprice
+            }                    
+            ]
+            
+            }
+        };
+    
+  
+    requestOptions["body"] = JSON.stringify(body);
+    console.log('Data Response ---------------------');
+    
+    try{
+        let resp = await fetch(dataUrl, requestOptions);
+      console.log(resp);
+        return resp;
+    }
+    catch (e) {
+        console.log("Request failed: " + e);
+      return networkErrorObj;
+    }
+  };

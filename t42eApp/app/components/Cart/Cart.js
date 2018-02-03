@@ -29,6 +29,7 @@ export default class Cart extends Component {
         super(props);
         this.state={
           cartList: [],
+          currentCartId: null,  
             
         }
         
@@ -54,13 +55,22 @@ export default class Cart extends Component {
             }
                     
           }  
+
+      onCartPressed(id){
+            this.setState ({
+              currentCartId: id
+            })
+          
+          }      
     render() {
         const showList = () => {
             return this.state.cartList.map((cart, i) => {
               
               return (
                 <Card key={i}>
-                  <CardItem style={{backgroundColor:'#FFFACD'}} >
+                  <CardItem style={{backgroundColor:'#FFFACD'}} button onPress={() => {
+              this.onCartPressed(cart.cart_id);
+            }} >
                     <Text> {cart.cart_prodname} </Text>
                   </CardItem>
                 </Card>
@@ -72,12 +82,19 @@ export default class Cart extends Component {
                <Header style={{justifyContent:'space-between',backgroundColor:"#0000CD"}}>
                <Item>
                   <Icon  name="ios-happy-outline"/>
-                  <Text> Items in your cart! </Text>  
+                  <Text> Listing cart items...Select to place order! </Text>   
                           
                </Item> 
                </Header>
                <Content style={styles.content} padder>
-               {showList()}
+               {
+                 (this.state.currentCartId !== null)
+                 ?
+                 <CartProd productId={this.state.currentCartId}/>
+                 :
+                 showList()
+               }
+                              
                </Content>
                        
             </Container>
