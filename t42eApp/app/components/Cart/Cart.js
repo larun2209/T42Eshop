@@ -22,6 +22,7 @@ import {
 } from "native-base";
 
 import { getCartList } from '../hasuraApi';
+import CartProd from './CartProd';
 
 export default class Cart extends Component {
 

@@ -3,6 +3,8 @@ import { Alert,StyleSheet} from 'react-native';
 import { Container, Text, Button, Card, CardItem, Icon, Header, Left, Body, Title, Content, Right, Spinner,Item} from 'native-base'
 import { getCartProduct } from '../hasuraApi'
 import { PlaceOrder } from '../hasuraApi'
+import { RemovefromCart } from '../hasuraApi'
+
 
 export default class CartProd extends React.Component {
 
@@ -30,7 +32,7 @@ export default class CartProd extends React.Component {
       }
     }
 
-    let orderObj = await PlaceOrder(this.state.cartproductObj);
+    let orderObj = await RemovefromCart(this.state.cartproductObj);
     if(orderObj.status === 200){
      Alert.alert('Order successful');
       }
@@ -41,6 +43,8 @@ export default class CartProd extends React.Component {
         Alert.alert('Something went wrong', 'Please check table permissions and your internet connection')
       }
     }
+
+    
     
   }
 
