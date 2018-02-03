@@ -752,3 +752,40 @@ export async function getCartProduct(id) {
       return networkErrorObj;
     }
   };
+
+  export async function RemovefromCart(cartproduct) {
+    console.log('Placed order:Removing from Cart');
+    let requestOptions = {
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    };
+  
+    let body = {
+        "type": "delete",
+        "args": {
+            "table": "cart",
+            "where": {
+                "cart_id": {
+                    "$eq": cartproduct.cart_id
+                }
+            }
+            
+            }
+        };
+    
+  
+    requestOptions["body"] = JSON.stringify(body);
+    console.log('Data Response ---------------------');
+    
+    try{
+        let resp = await fetch(dataUrl, requestOptions);
+      console.log(resp);
+        return resp;
+    }
+    catch (e) {
+        console.log("Request failed: " + e);
+      return networkErrorObj;
+    }
+  };
