@@ -1,9 +1,0 @@
-- args:
-    sql: ALTER TABLE "neworder" ALTER COLUMN "order_id" TYPE serial;
-  type: run_sql
-- args:
-    sql: ALTER TABLE ONLY "neworder" ALTER COLUMN "order_id" SET DEFAULT 1;
-  type: run_sql
-- args:
-    sql: ALTER TABLE "neworder" ALTER COLUMN "order_id" SET NOT NULL;
-  type: run_sql
