@@ -649,11 +649,11 @@ export async function AddtoCart(product) {
             "table": "cart",
             "objects": [
                 {
-                "cart_id":1,
-                "cart_prodid":"product.prod_id",
-                "cart_prodname":"product.prod_name",
-                "cart_proddesc":"product.prod_desc",
-                "cart_prodprice":"product.prod_price"
+                
+                "cart_prodid":product.prod_id,
+                "cart_prodname":product.prod_name,
+                "cart_proddesc":product.prod_desc,
+                "cart_prodprice":product.prod_price
             }                    
             ]
             
@@ -674,4 +674,38 @@ export async function AddtoCart(product) {
       return networkErrorObj;
     }
   };
+
+  export async function getCartList() {
+	console.log('Making data query (get cart list)');
+  let requestOptions = {
+      "method": "POST",
+      "headers": {
+          "Content-Type": "application/json"
+      }
+  };
+
+  let body = {
+      "type": "select",
+      "args": {
+          "table": "cart",
+          "columns": [
+              "cart_id",
+              "cart_prodname",
+          ]
+      }
+  };
+
+  requestOptions["body"] = JSON.stringify(body);
+  console.log('Data Response ---------------------');
+  try {
+  	let resp = await fetch(dataUrl, requestOptions);
+    console.log(resp);
+  	return resp; 
+  }
+  catch(e) {
+  	console.log("Request Failed: " + e);
+    return networkErrorObj;
+  }
+}
+
   

@@ -29,6 +29,7 @@ import { getSearchProductList } from '../hasuraApi';
 import { getProduct } from '../hasuraApi';
 import HomeScreenProd from './HomeScreenProd';
 
+
 export default class HomeScreen extends Component{
   
   constructor(props){

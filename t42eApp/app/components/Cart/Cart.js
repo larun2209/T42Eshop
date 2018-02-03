@@ -21,32 +21,32 @@ import {
   CardItem
 } from "native-base";
 
-import { getProductList } from '../hasuraApi';
+import { getCartList } from '../hasuraApi';
 
 export default class Cart extends Component {
 
     constructor(props){
         super(props);
         this.state={
-          productList: [],
+          cartList: [],
             
         }
         
       }
       async componentDidMount(){
         
-            let productList = await getProductList();
+            let cartList = await getCartList();
             
             
-            if(productList.status === 200){
-              productListJson = await productList.json();
+            if(cartList.status === 200){
+              cartListJson = await cartList.json();
               this.setState({
-              productList: await productListJson
+                cartList: await cartListJson
               });
               
             }
             else {
-              if (productList.status === 504) {
+              if (cartList.status === 504) {
                 Alert.alert('Network error', 'Check your internet connection');
               } else {
                 Alert.alert('Something went wrong', 'Please check table permissions and your internet connection')
@@ -56,12 +56,12 @@ export default class Cart extends Component {
           }  
     render() {
         const showList = () => {
-            return this.state.productList.map((product, i) => {
+            return this.state.cartList.map((cart, i) => {
               
               return (
                 <Card key={i}>
                   <CardItem style={{backgroundColor:'#FFFACD'}} >
-                    <Text> {product.prod_name} </Text>
+                    <Text> {cart.cart_prodname} </Text>
                   </CardItem>
                 </Card>
               );

@@ -2,6 +2,7 @@ import React from 'react';
 import { Alert,StyleSheet} from 'react-native';
 import { Container, Text, Button, Card, CardItem, Icon, Header, Left, Body, Title, Content, Right, Spinner,Item} from 'native-base'
 import { getProduct } from '../hasuraApi'
+import { AddtoCart } from '../hasuraApi'
 
 export default class HomeScreenProd extends React.Component {
 
@@ -29,6 +30,17 @@ export default class HomeScreenProd extends React.Component {
       }
     }
 
+    let cartObj = await AddtoCart(this.state.productObj);
+    if(cartObj.status === 200){
+     Alert.alert('Succussfully added to cart');
+      }
+    else {
+      if (cartObj.status === 504) {
+        Alert.alert('Network error', 'Check your internet connection');
+      } else {
+        Alert.alert('Something went wrong', 'Please check table permissions and your internet connection')
+      }
+    }
     
   }
 
