@@ -12,3 +12,10 @@
   data: null
   kubeContext: clarinetist87
   name: clarinetist87
+- alias: hasura_vm2
+  config:
+    configmap: controller-conf
+    namespace: autobahn14-hasura
+  data: null
+  kubeContext: autobahn14
+  name: autobahn14
