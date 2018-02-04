@@ -399,7 +399,9 @@ export async function getProductList() {
 }
 
 export async function getProduct(id) {
-  console.log('Making data query (get product)');
+  console.log('Making get product query (get specific product)');
+  console.log(id);
+
   let requestOptions = {
       "method": "POST",
       "headers": {
@@ -673,7 +675,8 @@ export async function getCartList() {
 
 
 export async function getCartProduct(id) {
-    console.log('Making data query (get product)');
+    console.log('Making cart data query (get cart specific product)');
+    console.log('value of cartid:',id);
     let requestOptions = {
         "method": "POST",
         "headers": {
@@ -712,10 +715,11 @@ export async function getCartProduct(id) {
     }
   };
   
-  export async function PlaceOrder(cartproduct) {
+  export async function PlaceOrder(cartproductObj,cartid) {
     console.log('Placing order');
-    console.log(cartproduct.cart_id);
-    console.log(cartproduct.cart_prodname);
+    console.log(cartid);
+    console.log(cartproductObj.cart_proddesc);
+    console.log(cartproductObj.cart_id);
     let requestOptions = {
         "method": "POST",
         "headers": {
@@ -726,13 +730,13 @@ export async function getCartProduct(id) {
     let body = {
         "type": "insert",
         "args": {
-            "table": "neworder",
+            "table": "orders",
             "objects": [
                 {
-                "order_cartid":cartproduct.cart_id,
-                "order_prodname":cartproduct.cart_prodname,
-                "order_proddesc":cartproduct.cart_proddesc,
-                "order_prodprice":cartproduct.cart_prodprice
+                "order_cartid":cartproductObj.cart_id,
+                "order_prodname":cartproductObj.cart_prodname,
+                "order_proddesc":cartproductObj.cart_proddesc,
+                "order_prodprice":cartproductObj.cart_prodprice
             }                    
             ]
             
@@ -790,3 +794,39 @@ export async function RemovefromCart(cartproduct) {
       return networkErrorObj;
     }
   };
+
+export async function getOrderList() {
+	console.log('Making data query (get order list)');
+  let requestOptions = {
+      "method": "POST",
+      "headers": {
+          "Content-Type": "application/json"
+      }
+  };
+
+  let body = {
+      "type": "select",
+      "args": {
+          "table": "orders",
+          "columns": [
+              "order_id",
+              "order_prodname",
+              "order_proddesc",
+              "order_prodprice",
+          ]
+      }
+  };
+
+  requestOptions["body"] = JSON.stringify(body);
+  console.log('Data Response ---------------------');
+  try {
+  	let resp = await fetch(dataUrl, requestOptions);
+    console.log(resp);
+  	return resp; 
+  }
+  catch(e) {
+  	console.log("Request Failed: " + e);
+    return networkErrorObj;
+  }
+}
+

@@ -23,6 +23,7 @@ import {
 
 import { getCartList } from '../hasuraApi';
 import CartProd from './CartProd';
+import CartRow from './CartRow';
 
 export default class Cart extends Component {
 
@@ -33,7 +34,7 @@ export default class Cart extends Component {
           currentCartId: null,  
             
         }
-        
+        this.onCartPressed = this.onCartPressed.bind(this); 
       }
       async componentDidMount(){
         
@@ -57,46 +58,26 @@ export default class Cart extends Component {
                     
           }  
 
-      onCartPressed(id){
+onCartPressed(id){
             this.setState ({
               currentCartId: id
             })
-          
+            
           }      
-    render() {
-        const showList = () => {
-            return this.state.cartList.map((cart, i) => {
-              
-              return (
-                <Card key={i}>
-                  <CardItem style={{backgroundColor:'#FFFACD'}} button onPress={() => {
-              this.onCartPressed(cart.cart_id);
-            }} >
-                    <Text> {cart.cart_prodname} </Text>
-                  </CardItem>
-                </Card>
-              );
-            });
-          };
+render() {
+        
         return (
-            <Container style={styles.container}>
-               <Header style={{justifyContent:'space-between',backgroundColor:"#0000CD"}}>
-               <Item>
-                  <Icon  name="ios-happy-outline"/>
-                  <Text> Listing cart items...Select to place order! </Text>   
-                          
-               </Item> 
-               </Header>
-               <Content style={styles.content} padder>
-               {
+            <Container style={{alignItems: 'center', justifyContent: 'center'}}>
+              
+              {
                  (this.state.currentCartId !== null)
                  ?
-                 <CartProd productId={this.state.currentCartId}/>
+                 <CartProd cartId={this.state.currentCartId}/>
                  :
-                 showList()
+                 <CartRow cartList={this.state.cartList} cartCallback={this.onCartPressed} />
                }
                               
-               </Content>
+               
                        
             </Container>
         );

@@ -32,7 +32,7 @@ export default class CartProd extends React.Component {
       }
     }
 
-    let orderObj = await PlaceOrder(this.state.cartproductObj);
+    let orderObj = await PlaceOrder(this.state.cartproductObj,this.state.cartId);
     if(orderObj.status === 200){
      Alert.alert('Order successful');
       }

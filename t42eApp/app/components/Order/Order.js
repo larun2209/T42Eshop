@@ -21,7 +21,7 @@ import {
   CardItem
 } from "native-base";
 
-import { getProductList } from '../hasuraApi';
+import { getOrderList } from '../hasuraApi';
 
 
 export default class Order extends Component {
@@ -29,25 +29,25 @@ export default class Order extends Component {
     constructor(props){
         super(props);
         this.state={
-          productList: [],
+          orderList: [],
             
         }
         
       }
       async componentDidMount(){
         
-            let productList = await getProductList();
+            let orderList = await getOrderList();
             
             
-            if(productList.status === 200){
-              productListJson = await productList.json();
+            if(orderList.status === 200){
+              orderListJson = await orderList.json();
               this.setState({
-              productList: await productListJson
+              orderList: await orderListJson
               });
               
             }
             else {
-              if (productList.status === 504) {
+              if (orderList.status === 504) {
                 Alert.alert('Network error', 'Check your internet connection');
               } else {
                 Alert.alert('Something went wrong', 'Please check table permissions and your internet connection')
@@ -57,12 +57,15 @@ export default class Order extends Component {
           }  
     render() {
         const showList = () => {
-            return this.state.productList.map((product, i) => {
+            return this.state.orderList.map((order, i) => {
               
               return (
                 <Card key={i}>
-                  <CardItem style={{backgroundColor:'#F0FFFF'}}>
-                    <Text> {product.prod_name} </Text>
+                  <CardItem header style={{backgroundColor:'#F0FFFF'}}>
+                    <Text>Product Name: {order.order_prodname} </Text>
+                  </CardItem>
+                  <CardItem footer>  
+                    <Text> Price:{order.order_prodprice} </Text>
                   </CardItem>
                 </Card>
               );

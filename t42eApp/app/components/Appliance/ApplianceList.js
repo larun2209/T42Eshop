@@ -45,6 +45,7 @@ export default class ApplianceList extends React.Component {
     this.setState ({
       currentApplianceId: id
     })
+    console.log('in appliance clicked',this.state.currentApplianceId)
   }
 
   
