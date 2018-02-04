@@ -1,0 +1,7 @@
+- args:
+    sql: ALTER TABLE "orders" ALTER COLUMN "order_id" TYPE serial;
+  type: run_sql
+- args:
+    sql: ALTER TABLE ONLY "orders" ALTER COLUMN "order_id" SET DEFAULT 1;
+  type: run_sql
+
