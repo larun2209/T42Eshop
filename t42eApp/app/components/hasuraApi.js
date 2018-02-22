@@ -497,7 +497,8 @@ export async function getFashionProductList() {
           "columns": [
             "prod_id",
             "prod_name",
-            "prod_category"
+            "prod_category",
+            "prod_picurl"
           ],
           "where": {
               "prod_category": {
@@ -537,7 +538,8 @@ export async function getApplianceProductList() {
           "columns": [
             "prod_id",
             "prod_name",
-            "prod_category"
+            "prod_category",
+            "prod_picurl"
           ],
           "where": {
               "prod_category": {
@@ -576,7 +578,8 @@ export async function getGroceryProductList(searchText) {
           "columns": [
             "prod_id",
             "prod_name",
-            "prod_category"
+            "prod_category",
+            "prod_picurl"
           ],
           "where": {
               "prod_category": {

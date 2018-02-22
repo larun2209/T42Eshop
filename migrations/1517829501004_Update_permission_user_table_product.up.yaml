@@ -1,0 +1,17 @@
+- args:
+    role: user
+    table: product
+  type: drop_select_permission
+- args:
+    permission:
+      columns:
+      - prod_category
+      - prod_desc
+      - prod_id
+      - prod_name
+      - prod_picurl
+      - prod_price
+      filter: {}
+    role: user
+    table: product
+  type: create_select_permission

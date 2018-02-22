@@ -1,6 +1,8 @@
 import React from 'react';
-import {Container, Card, CardItem, Header, Title, Content, Button, Left, Text, Icon, Body, Right, Spinner,Item} from 'native-base';
-import { View, ActivityIndicator,StyleSheet} from 'react-native';
+import {Container, Card, CardItem, Header, Title, Content, Button, Left, Text, Icon, Body, Right, Spinner,Item,Thumbnail} from 'native-base';
+import { View, ActivityIndicator,StyleSheet,Dimensions} from 'react-native';
+
+const deviceWidth = Dimensions.get("window").width;
 
 export default class FashionRow extends React.Component {
 
@@ -14,10 +16,23 @@ export default class FashionRow extends React.Component {
         
         return (
           <Card key={i}>
-            <CardItem button onPress={() => {
+            <CardItem  button onPress={() => {
               this.onFashionPressed(fashion.prod_id);
             }}>
               <Text> {fashion.prod_name} </Text>
+            </CardItem>
+            <CardItem>
+             <Thumbnail
+                style={{
+                alignSelf: "center",
+                height: 150,
+                resizeMode: "cover",
+                width: deviceWidth / 1.18,
+                marginVertical: 5
+                        
+                }}
+                source= {{uri:'https://filestore.clarinetist87.hasura-app.io/v1/file/'+ fashion.prod_picurl}}
+                />
             </CardItem>
           </Card>
         );

@@ -1,6 +1,8 @@
 import React from 'react';
-import {Container, Card, CardItem, Header, Title, Content, Button, Left, Text, Icon, Body, Right, Spinner,Item} from 'native-base';
-import { View, ActivityIndicator,StyleSheet} from 'react-native';
+import {Container, Card, CardItem, Header, Title, Content, Button, Left, Text, Icon, Body, Right, Spinner,Item,Thumbnail} from 'native-base';
+import { View, ActivityIndicator,StyleSheet,Dimensions} from 'react-native';
+
+const deviceWidth = Dimensions.get("window").width;
 
 export default class GroceryRow extends React.Component {
 
@@ -18,6 +20,19 @@ export default class GroceryRow extends React.Component {
               this.onGroceryPressed(grocery.prod_id);
             }}>
               <Text> {grocery.prod_name} </Text>
+            </CardItem>
+            <CardItem>
+             <Thumbnail
+                style={{
+                alignSelf: "center",
+                height: 150,
+                resizeMode: "cover",
+                width: deviceWidth / 1.18,
+                marginVertical: 5
+                        
+                }}
+                source= {{uri:'https://filestore.clarinetist87.hasura-app.io/v1/file/'+ grocery.prod_picurl}}
+                />
             </CardItem>
           </Card>
         );
